@@ -23,6 +23,7 @@ def fill_and_display(player):
             if event.type == pygame.QUIT:  # Check for quit event
                 return  # Exit the loop and end the function
         screen.fill(black)
+        player.update(dt)
         player.draw(screen)
         pygame.display.flip()
         dt = clock.tick(60) / 1000

@@ -4,8 +4,8 @@ from constants import *
 
 class Player(CircleShape):
     rotation = 0
-    def __init__(self, x, y):
-        super().__init__(x, y, PLAYER_RADIUS)  # Call parent constructor
+    def __init__(self, x, y, radius):
+        super().__init__(x, y, radius)  # Call parent constructor
         self.rotation = 0
 
     
@@ -19,3 +19,15 @@ class Player(CircleShape):
 
     def draw(self, screen):
         pygame.draw.polygon(screen, (255, 255, 255), self.triangle(), 2)
+
+    def rotate(self, dt):
+        self.rotation += (PLAYER_TURN_SPEED * dt)
+        return self.rotation
+
+    def update(self, dt):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_a]:
+            self.rotate(-dt)
+        if keys[pygame.K_d]:
+            self.rotate(dt)
