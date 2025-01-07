@@ -5,12 +5,14 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
+from score import Score
 
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+    score = Score()
 
     asteroids = pygame.sprite.Group()
     updatable = pygame.sprite.Group()
@@ -39,6 +41,7 @@ def main():
             obj.update(dt)
 
         screen.fill("black")
+        
         for obj in asteroids:
             if player.collisions(obj):
                 print("Game over!")
@@ -47,11 +50,12 @@ def main():
                 if obj.collisions(shot):
                     shot.kill()
                     obj.split()
-                    
+                    score.add_points(100)
             
 
         for obj in drawable:
             obj.draw(screen)
+        score.draw(screen)
 
         pygame.display.flip()
 
